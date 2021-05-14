@@ -4,7 +4,7 @@ def create_tables():
     db = sqlite3.connect('OSRSItems.db')
 
     c = db.cursor()
-
+    c.execute('DROP TABLE IF EXISTS ItemProperties')
     c.execute('''CREATE TABLE IF NOT EXISTS ItemProperties(
                 id INTEGER NOT NULL PRIMARY KEY,
                 name TEXT NOT NULL,
@@ -35,10 +35,11 @@ def create_tables():
                 icon TEXT NOT NULL,
                 wiki_name TEXT,
                 wiki_url TEXT,
-                equpment INTEGER,
+                equipment INTEGER,
                 weapon INTEGER
                 )''')
 
+    c.execute('DROP TABLE IF EXISTS ItemEquipment')
     c.execute('''CREATE TABLE IF NOT EXISTS ItemEquipment(
                 id INTEGER NOT NULL PRIMARY KEY,
                 attack_stab INTEGER,
@@ -59,16 +60,20 @@ def create_tables():
                 requirements TEXT
                 )''')
 
+    c.execute('DROP TABLE IF EXISTS ItemWeapon')
     c.execute('''CREATE TABLE IF NOT EXISTS ItemWeapon(
                 id INTEGER NOT NULL PRIMARY KEY,
                 attack_speed INTEGER,
                 weapon_type TEXT,
                 stances TEXT
+                FOREIGN KEY(id) REFERENCES ItemProperties(ItemProperties.id)
                 )''')
 
+    c.execute('DROP TABLE Requirements')
     c.execute('''CREATE TABLE IF NOT EXISTS Requirements(
                 id INTEGER NOT NULL PRIMARY KEY,
                 requirements TEXT
+                FOREIGN KEY(id) REFERENCES ItemProperties(ItemProperties.id)
                 )''')
         
     db.close()
