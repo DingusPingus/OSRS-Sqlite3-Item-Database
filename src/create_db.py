@@ -2,9 +2,9 @@ import sqlite3
 
 db = sqlite3.connect('OSRSItems.db')
 
-db = db.cursor()
+c = db.cursor()
 
-db.execute('''CREATE TABLE ItemsProperties(
+c.execute('''CREATE TABLE IF NOT EXISTS ItemProperties(
             id INTEGER NOT NULL PRIMARY KEY,
             name TEXT NOT NULL,
             last_updated TEXT NOT NULL,
@@ -13,16 +13,16 @@ db.execute('''CREATE TABLE ItemsProperties(
             tradeable BOOLEAN NOT NULL,
             tradeable_on_ge BOOLEAN NOT NULL,
             stackable BOOLEAN NOT NULL,
-            stacked, INTEGER,
+            stacked INTEGER,
             noted BOOLEAN NOT NULL,
             noteable BOOLEAN NOT NULL,
             linked_id_item INTEGER,
             linked_id_noted INTEGER,
             linked_id_placeholder INTEGER,
             placeholder BOOLEAN NOT NULL,
-            equipable_by_player BOOLEAN NOT NULL
+            equipable_by_player BOOLEAN NOT NULL,
             equipable_weapon BOOLEAN NOT NULL,
-            cost INTEGER NOT NULL
+            cost INTEGER NOT NULL,
             lowalch INTEGER,
             highalch INTEGER,
             weight FLOAT,
@@ -30,7 +30,7 @@ db.execute('''CREATE TABLE ItemsProperties(
             quest_item BOOLEAN NOT NULL,
             release_date TEXT,
             duplicate BOOLEAN NOT NULL,
-            examine TEXT NOT NULL,
+            examine TEXT NULL,
             icon TEXT NOT NULL,
             wiki_name TEXT,
             wiki_url TEXT,
@@ -38,8 +38,8 @@ db.execute('''CREATE TABLE ItemsProperties(
             weapon INTEGER
             )''')
 
-db.execute('''CREATE TABLE ItemEquipment(
-            id INTEGER NOT NULL PRIMARY KEY
+c.execute('''CREATE TABLE IF NOT EXISTS ItemEquipment(
+            id INTEGER NOT NULL PRIMARY KEY,
             attack_stab INTEGER,
             attack_slash INTEGER,
             attack_crush INTEGER,
@@ -58,15 +58,16 @@ db.execute('''CREATE TABLE ItemEquipment(
             requirements TEXT
             )''')
 
-db.execute('''ItemWeapon(
-    id INTEGER NOT NULL PRIMARY KEY
-    attack_speed INTEGER,
-    weapon_type TEXT,
-    stances TEXT
-    )''')
-db.execute('''Requirements(
-    id INTEGER NOT NULL PRIMARY KEY,
-    requirements TEXT
-    )''')
+c.execute('''CREATE TABLE IF NOT EXISTS ItemWeapon(
+            id INTEGER NOT NULL PRIMARY KEY,
+            attack_speed INTEGER,
+            weapon_type TEXT,
+            stances TEXT
+            )''')
+
+c.execute('''CREATE TABLE IF NOT EXISTS Requirements(
+            id INTEGER NOT NULL PRIMARY KEY,
+            requirements TEXT
+            )''')
     
 db.close()
