@@ -7,5 +7,5 @@ This project is very rough and does not contain all properties of items in OSRSB
 * Python >= 3.6 is required for osrs-db
 * make sure [osrs-db](https://pypi.org/project/osrsbox/) is installed `pip install osrsbox`
 * instructions for getting sqlite installed can be found [here](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm)
-* run main.py  `python install osrsbox` if default python version is not >= 3.6 then use `python3 install osrsbox` instead
-* all tables should now be present in OSRSItems.db which can be imported into some software or seen in sqlite CLI command `.tables`
+* run main.py  `python install osrsbox` if your default python version for `python` command is not >= 3.6 then use `python3 install osrsbox` instead
+* all tables should now be present in OSRSItems.db which can be imported into some software or be accessed through usual sqlite CLI commands
